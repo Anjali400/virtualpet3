@@ -15,7 +15,7 @@ bedroom=loadImage("Bed Room.png");
 
 function setup() {
   database=firebase.database();
-  createCanvas(900,500);
+  createCanvas(1000,500);
   
   foodObj = new Food();
 
@@ -33,7 +33,7 @@ function setup() {
     gameState=data.val();
   });
    
-  dog=createSprite(800,400,150,150);
+  dog=createSprite(500,400,150,150);
   dog.addImage(sadDog);
   dog.scale=0.15;
   
@@ -85,12 +85,14 @@ function readStock(data){
 //function to update food stock and last fed time
 function feedDog(){
   dog.addImage(happyDog);
-  foodObj.updatefoodStock(foodObj.getfoodStock()-1)
+
+  foodObj.updateFoodStock(foodObj.getFoodStock()-1);
   database.ref('/').update({
-    Food:foodObj.getfoodStock(),
-    feedTime:hour()
+    Food:foodObj.getFoodStock(),
+    FeedTime:hour(),
+    gameState:"Hungry"
   })
-  }
+}
 
 //function to add food in stock
 function addFoods(){
